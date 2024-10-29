@@ -38,7 +38,19 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "drf_spectacular",
+    "django_coverage_plugin",
 ]
+
+COVERAGE_MODULE_EXCLUDES = [
+    "manage",
+    "migrations",
+    "settings",
+    "urls",
+    "wsgi",
+    "asgi"
+]
+
+COVERAGE_SHOW_MISSING = True
 
 REST_FRAMEWORK = {
     "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
