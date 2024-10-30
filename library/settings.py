@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     "drf_spectacular",
     "django_coverage_plugin",
     "books",
+    "user",
 ]
 
 COVERAGE_MODULE_EXCLUDES = [
@@ -60,6 +61,7 @@ REST_FRAMEWORK = {
 }
 
 SIMPLE_JWT = {
+    "AUTH_HEADER_NAME": "HTTP_AUTHORIZE",
     "ACCESS_TOKEN_LIFETIME": timedelta(minutes=30),
     "REFRESH_TOKEN_LIFETIME": timedelta(days=7),
     "ROTATE_REFRESH_TOKENS": True
@@ -123,8 +125,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-AUTH_HEADER_NAME = "HTTP_AUTHORIZE"
-
 # Internationalization
 # https://docs.djangoproject.com/en/5.1/topics/i18n/
 
@@ -135,6 +135,8 @@ TIME_ZONE = "UTC"
 USE_I18N = True
 
 USE_TZ = True
+
+AUTH_USER_MODEL = 'user.User'
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/

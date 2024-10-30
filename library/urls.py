@@ -30,6 +30,7 @@ from rest_framework_simplejwt.views import (
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("api/library/", include("books.urls"), name="books"),
+    path("api/user/", include("user.urls"), name="user"),
     path("api/doc/", SpectacularAPIView.as_view(), name="schema"),
     path(
         "api/doc/swagger/",
@@ -40,15 +41,5 @@ urlpatterns = [
         "api/doc/redoc/",
         SpectacularRedocView.as_view(url_name="schema"),
         name="redoc"
-    ),
-    path(
-        "api/token/",
-        TokenObtainPairView.as_view(),
-        name="token_obtain_pair"
-    ),
-    path(
-        "api/token/refresh/",
-        TokenRefreshView.as_view(),
-        name="token_refresh"
     ),
 ]
