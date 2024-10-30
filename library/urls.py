@@ -22,15 +22,12 @@ from drf_spectacular.views import (
     SpectacularRedocView,
     SpectacularSwaggerView,
 )
-from rest_framework_simplejwt.views import (
-    TokenObtainPairView,
-    TokenRefreshView,
-)
 
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("api/library/", include("books.urls"), name="books"),
     path("api/user/", include("user.urls"), name="user"),
+    path("api/borrowing/", include("borrowing.urls"), name="borrowing"),
     path("api/doc/", SpectacularAPIView.as_view(), name="schema"),
     path(
         "api/doc/swagger/",

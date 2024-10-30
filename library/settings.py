@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     "django_coverage_plugin",
     "books",
     "user",
+    "borrowing",
 ]
 
 COVERAGE_MODULE_EXCLUDES = [
