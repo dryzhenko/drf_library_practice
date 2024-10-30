@@ -18,13 +18,17 @@ class BorrowingListSerializer(BorrowingSerializer):
 class BorrowingCreateSerializer(BorrowingSerializer):
     class Meta:
         model = Borrowing
-        fields = ("borrow_date", "expected_return_date", "book_id", "user_id")
+        fields = ("id", "borrow_date", "expected_return_date", "book_id", "user_id")
+        read_only_fields = ("user_id",)
 
     def create(self, validated_data):
         book = validated_data.get("book_id")
 
         book.inventory -= 1
         book.save()
+
+        user = self.context["request"].user
+        validated_data["user_id"] = user
 
         return Borrowing.objects.create(**validated_data)
 
