@@ -10,7 +10,13 @@ class BorrowingViewSet(viewsets.ModelViewSet):
     permission_classes = [permissions.IsAuthenticated]
 
     def get_queryset(self):
-        queryset = Borrowing.objects.filter(user_id=self.request.user)
+        if self.request.user.is_staff:
+            queryset = Borrowing.objects.all()
+            user_id = self.request.query_params.get("user_id")
+            if user_id:
+                queryset = Borrowing.objects.filter(user_id=user_id)
+        else:
+            queryset = Borrowing.objects.filter(user_id=self.request.user)
 
         is_active = self.request.query_params.get("is_active")
 
