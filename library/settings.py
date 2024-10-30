@@ -123,6 +123,8 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+AUTH_HEADER_NAME = "HTTP_AUTHORIZE"
+
 # Internationalization
 # https://docs.djangoproject.com/en/5.1/topics/i18n/
 
