@@ -1,7 +1,7 @@
 from rest_framework import viewsets
 
 from borrowing.models import Borrowing
-from borrowing.serializers import BorrowingSerializer, BorrowingListSerializer
+from borrowing.serializers import BorrowingSerializer, BorrowingListSerializer, BorrowingCreateSerializer
 
 
 class BorrowingViewSet(viewsets.ModelViewSet):
@@ -9,8 +9,10 @@ class BorrowingViewSet(viewsets.ModelViewSet):
     serializer_class = BorrowingSerializer
 
     def get_serializer_class(self):
-        if self.action == 'list':
+        if self.action == "list":
             return BorrowingListSerializer
+        if self.action == "create":
+            return BorrowingCreateSerializer
 
         return BorrowingSerializer
 
