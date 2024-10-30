@@ -1,4 +1,4 @@
-from rest_framework import viewsets
+from rest_framework import viewsets, permissions
 
 from borrowing.models import Borrowing
 from borrowing.serializers import BorrowingSerializer, BorrowingListSerializer, BorrowingCreateSerializer
@@ -7,6 +7,10 @@ from borrowing.serializers import BorrowingSerializer, BorrowingListSerializer, 
 class BorrowingViewSet(viewsets.ModelViewSet):
     queryset = Borrowing.objects.all()
     serializer_class = BorrowingSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get_queryset(self):
+        return Borrowing.objects.filter(user_id=self.request.user)
 
     def get_serializer_class(self):
         if self.action == "list":
