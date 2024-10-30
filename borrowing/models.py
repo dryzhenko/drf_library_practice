@@ -4,9 +4,9 @@ from django.conf import settings
 
 
 class Borrowing(models.Model):
-    borrow_date = models.DateField()
-    expected_return_date = models.DateField()
-    actual_return_date = models.DateField()
+    borrow_date = models.DateField(null=False, blank=False)
+    expected_return_date = models.DateField(null=False, blank=False)
+    actual_return_date = models.DateField(null=False, blank=False)
     book_id = models.ForeignKey(
         Book,
         on_delete=models.CASCADE,
