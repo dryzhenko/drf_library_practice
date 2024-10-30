@@ -13,3 +13,12 @@ class BorrowingSerializer(serializers.ModelSerializer):
 
 class BorrowingListSerializer(BorrowingSerializer):
     book_id = BookSerializer()
+
+
+class BorrowingCreateSerializer(BorrowingSerializer):
+    class Meta:
+        model = Borrowing
+        fields = ("borrow_date", "expected_return_date", "book_id", "user_id")
+
+    def create(self, validated_data):
+        return Borrowing.objects.create(**validated_data)
