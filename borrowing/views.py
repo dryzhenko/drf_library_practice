@@ -1,7 +1,14 @@
-from rest_framework import viewsets, permissions
+from rest_framework import viewsets, permissions, status
+from rest_framework.decorators import action
+from rest_framework.response import Response
 
 from borrowing.models import Borrowing
-from borrowing.serializers import BorrowingSerializer, BorrowingListSerializer, BorrowingCreateSerializer
+from borrowing.serializers import (
+    BorrowingSerializer,
+    BorrowingListSerializer,
+    BorrowingCreateSerializer,
+    BorrowingReturnSerializer
+)
 
 
 class BorrowingViewSet(viewsets.ModelViewSet):
@@ -35,4 +42,18 @@ class BorrowingViewSet(viewsets.ModelViewSet):
             return BorrowingCreateSerializer
 
         return BorrowingSerializer
+
+    @action(
+        methods=["GET"],
+        detail=True,
+        serializer_class=BorrowingReturnSerializer
+    )
+    def return_borrowing(self, request, pk=None):
+        borrowing = self.get_object()
+        serializer = BorrowingReturnSerializer(borrowing, data=request.data)
+
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
 
