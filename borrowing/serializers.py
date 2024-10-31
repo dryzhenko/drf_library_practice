@@ -4,6 +4,7 @@ from rest_framework import serializers
 from borrowing.models import Borrowing
 
 from books.serializers import BookSerializer
+from telegram_bot import notify_borrowing
 
 
 class BorrowingSerializer(serializers.ModelSerializer):
@@ -31,7 +32,11 @@ class BorrowingCreateSerializer(BorrowingSerializer):
         user = self.context["request"].user
         validated_data["user_id"] = user
 
-        return Borrowing.objects.create(**validated_data)
+        borrowing = Borrowing.objects.create(**validated_data)
+
+        notify_borrowing(book, user)
+
+        return borrowing
 
     def validate(self, attrs):
         book = attrs.get("book_id")
