@@ -1,3 +1,4 @@
+from drf_spectacular.utils import extend_schema, OpenApiParameter
 from rest_framework import viewsets, permissions, status
 from rest_framework.decorators import action
 from rest_framework.response import Response
@@ -16,6 +17,23 @@ class BorrowingViewSet(viewsets.ModelViewSet):
     serializer_class = BorrowingSerializer
     permission_classes = [permissions.IsAuthenticated]
 
+    @extend_schema(
+        parameters=[
+            OpenApiParameter(
+                name="user_id",
+                description="Filter borrowings by specific user (admin only)",
+                required=False,
+                type=int
+            ),
+            OpenApiParameter(
+                name="is_active",
+                description="Filter by active borrowings (still not returned): true or false",
+                required=False,
+                type=bool
+            ),
+        ],
+        responses={200: BorrowingListSerializer},
+    )
     def get_queryset(self):
         if self.request.user.is_staff:
             queryset = Borrowing.objects.all()
@@ -43,6 +61,10 @@ class BorrowingViewSet(viewsets.ModelViewSet):
 
         return BorrowingSerializer
 
+    @extend_schema(
+        description="Mark a borrowing instance as returned and increase the book's inventory.",
+        responses={201: BorrowingReturnSerializer},
+    )
     @action(
         methods=["GET"],
         detail=True,
