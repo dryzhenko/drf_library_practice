@@ -21,4 +21,3 @@ def notify_borrowing(book, user):
     message = f"Book {book.title} was borrowed by visitor with ID: {user.id}"
 
     asyncio.run(send_message(message, CHAT_ID))
-

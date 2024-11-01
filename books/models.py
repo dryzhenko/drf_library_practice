@@ -19,5 +19,3 @@ class Book(models.Model):
             f"Inventory: {self.inventory}; "
             f"Daily Fee: {self.daily_fee}"
             )
-
-
