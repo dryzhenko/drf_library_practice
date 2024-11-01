@@ -67,4 +67,3 @@ class BorrowingReturnSerializer(serializers.ModelSerializer):
         instance.save()
 
         return instance
-

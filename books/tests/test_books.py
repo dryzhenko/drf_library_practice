@@ -121,4 +121,3 @@ class BookViewSetTest(APITestCase):
         }
         response = self.client.post(self.book_url, data)
         self.assertEqual(response.status_code, 403)
-
